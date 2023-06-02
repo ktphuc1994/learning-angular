@@ -5,7 +5,7 @@ export interface RoomManagement {
 }
 
 export interface RoomInfo {
-  roomId: number;
+  roomId: string;
   roomType: string;
   amenities: string;
   price: number;
