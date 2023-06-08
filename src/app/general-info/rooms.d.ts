@@ -8,7 +8,7 @@ export interface RoomInfo {
   roomId: string;
   roomType: string;
   amenities: string;
-  price: number;
+  price: string;
   photos: string;
   checkinTime: Date;
   checkoutTime: Date;

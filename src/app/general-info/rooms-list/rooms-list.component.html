@@ -19,6 +19,7 @@
     <td>{{ room.checkinTime | date : "dd/MMM/yyyy" }}</td>
     <th>
       <button type="button" (click)="selectRoom(room)">Select</button>
+      <button type="button" (click)="updateRoom(room.roomId)">Update</button>
       <button type="button" (click)="deleteRoom(room.roomId)">Delete</button>
     </th>
   </tr>

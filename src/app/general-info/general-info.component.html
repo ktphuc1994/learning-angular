@@ -17,15 +17,17 @@
 <button (click)="unbookRoom()">Unbook Room</button>
 <button (click)="addRoom()">Add Room</button>
 
-<div *ngIf="roomManage.availableRoom > 0">
-  <hotel-rooms-list
-    [roomList]="roomList"
-    [title]="roomTitle"
-    (selectRoomEvent)="selectRoom($event)"
-    (deleteRoomEvent)="deleteRoom($event)"
-    (roomListDestroyEvent)="clearSelectedRoom()"
-  />
-</div>
+<ng-container *ngIf="roomsList | async as roomsList">
+  <div *ngIf="roomManage.availableRoom > 0">
+    <hotel-rooms-list
+      [roomList]="roomsList"
+      [title]="roomTitle"
+      (selectRoomEvent)="selectRoom($event)"
+      (updateRoomEvent)="updateRoom($event)"
+      (deleteRoomEvent)="deleteRoom($event)"
+      (roomListDestroyEvent)="clearSelectedRoom()"
+    /></div
+></ng-container>
 <div *ngIf="selectedRoom">
   <button (click)="clearSelectedRoom()">Clear</button>
   <p>{{ selectedRoom | json }}</p>

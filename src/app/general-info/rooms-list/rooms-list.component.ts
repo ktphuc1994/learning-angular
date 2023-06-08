@@ -21,6 +21,7 @@ export class RoomsListComponent implements OnChanges, OnDestroy {
   @Input() title: string = '';
 
   @Output() selectRoomEvent = new EventEmitter<RoomInfo>();
+  @Output() updateRoomEvent = new EventEmitter<string>();
   @Output() deleteRoomEvent = new EventEmitter<string>();
   @Output() roomListDestroyEvent = new EventEmitter();
 
@@ -34,6 +35,9 @@ export class RoomsListComponent implements OnChanges, OnDestroy {
 
   selectRoom(room: RoomInfo) {
     this.selectRoomEvent.emit(room);
+  }
+  updateRoom(roomId: string) {
+    this.updateRoomEvent.emit(roomId);
   }
   deleteRoom(roomId: string) {
     this.deleteRoomEvent.emit(roomId);

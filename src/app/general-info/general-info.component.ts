@@ -5,8 +5,15 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+
+// import types and interfaces
 import { RoomInfo, RoomManagement } from './rooms';
+
+// import local components
 import { HeaderComponent } from '../header/header.component';
+
+// import local services
+import { GeneralInfoService } from './services/general-info.service';
 
 @Component({
   selector: 'hotel-general-info',
@@ -24,41 +31,16 @@ export class GeneralInfoComponent
     bookedRoom: 15,
   };
 
+  roomsList = this.generalInfoService.roomsList;
   roomList: RoomInfo[] = [];
   selectedRoom: RoomInfo | null = null;
 
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
+  constructor(private generalInfoService: GeneralInfoService) {}
+
   ngOnInit(): void {
-    this.roomList = [
-      {
-        roomId: 'id1',
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wifi, TV, Bathroom, Kitchen',
-        price: 500,
-        photos: 'https://picsum.photos/200',
-        checkinTime: new Date('2023/05/28'),
-        checkoutTime: new Date('2023/05/30'),
-      },
-      {
-        roomId: 'id2',
-        roomType: 'Regular Room',
-        amenities: 'Free Wifi, TV, Bathroom',
-        price: 300,
-        photos: 'https://picsum.photos/200',
-        checkinTime: new Date('2023/05/30'),
-        checkoutTime: new Date('2023/06/02'),
-      },
-      {
-        roomId: 'id3',
-        roomType: 'Regular Room',
-        amenities: 'Free Wifi, TV, Bathroom',
-        price: 300,
-        photos: 'https://picsum.photos/200',
-        checkinTime: new Date('2023/06/04'),
-        checkoutTime: new Date('2023/06/10'),
-      },
-    ];
+    this.generalInfoService.getRoomsList();
   }
 
   ngAfterViewInit(): void {
@@ -77,24 +59,25 @@ export class GeneralInfoComponent
     this.roomManage.bookedRoom--;
   }
   addRoom() {
-    const room: RoomInfo = {
-      roomId: 'id' + Date.now(),
+    const room: Omit<RoomInfo, 'roomId'> = {
       roomType: 'Regular Deluxe',
       amenities: 'TV, Yard',
-      price: 200,
+      price: '200',
       photos: 'https://picsum.photos/200',
       checkinTime: new Date('2023/06/12'),
       checkoutTime: new Date('2023/06/15'),
     };
-    this.roomList = [...this.roomList, room];
+    this.generalInfoService.addRoom(room);
+  }
+  updateRoom(roomId: string) {
+    const updateRoomInfo: Partial<RoomInfo> = {
+      roomType: 'Updated RoomType',
+      amenities: 'TV, Yard, New PS5, Updated',
+    };
+    this.generalInfoService.updateRoom(roomId, updateRoomInfo);
   }
   deleteRoom(roomId: string) {
-    const deleteIndex = this.roomList.findIndex(
-      (room) => room.roomId === roomId
-    );
-    const newRoomList = [...this.roomList];
-    newRoomList.splice(deleteIndex, 1);
-    this.roomList = newRoomList;
+    this.generalInfoService.deleteRoom(roomId);
   }
   selectRoom(room: RoomInfo) {
     this.selectedRoom = room;
