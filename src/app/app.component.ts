@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { localStorageToken } from './localServ/localStorage.token';
+import { InitService } from './init.service';
 
 @Component({
   selector: 'hotel-root',
@@ -9,7 +10,12 @@ import { localStorageToken } from './localServ/localStorage.token';
 export class AppComponent implements OnInit {
   title = 'hotel-inventory-app';
 
-  constructor(@Inject(localStorageToken) private localStorage: Storage) {}
+  constructor(
+    @Inject(localStorageToken) private localStorage: Storage,
+    private initService: InitService
+  ) {
+    // console.log(initService.config);
+  }
 
   ngOnInit(): void {}
 }

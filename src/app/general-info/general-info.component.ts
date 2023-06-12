@@ -32,7 +32,6 @@ export class GeneralInfoComponent
   };
 
   roomsList = this.generalInfoService.roomsList;
-  roomList: RoomInfo[] = [];
   selectedRoom: RoomInfo | null = null;
 
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;

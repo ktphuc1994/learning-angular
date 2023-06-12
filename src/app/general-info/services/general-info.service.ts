@@ -45,11 +45,8 @@ export class GeneralInfoService {
   }
 
   getRoomsList() {
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + 'Helloworld',
-    });
     this.http
-      .get<RoomInfo[]>('api/roomsList', { headers })
+      .get<RoomInfo[]>('api/roomsList')
       .pipe(shareReplay(1), catchError(this.handleError))
       .subscribe((rooms) => this.roomsList$.next(rooms));
   }
