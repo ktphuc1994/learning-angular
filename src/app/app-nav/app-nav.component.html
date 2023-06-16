@@ -10,6 +10,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="rooms">Rooms</a>
+      <a mat-list-item routerLink="rooms/add">Add Room</a>
       <a mat-list-item routerLink="employee">Employee</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -27,6 +28,8 @@
       <span>hotel-inventory-app</span>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <router-outlet />
+    <div class="app-nav__content">
+      <router-outlet />
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

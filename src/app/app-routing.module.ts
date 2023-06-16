@@ -4,6 +4,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { GeneralInfoComponent } from './general-info/general-info.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoomDetailsComponent } from './general-info/room-details/room-details.component';
+import { RoomAddComponent } from './general-info/room-add/room-add.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'rooms',
     component: GeneralInfoComponent,
+  },
+  {
+    path: 'rooms/add',
+    component: RoomAddComponent,
   },
   {
     path: 'rooms/:id',

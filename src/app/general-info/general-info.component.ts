@@ -66,7 +66,9 @@ export class GeneralInfoComponent
       checkinTime: new Date('2023/06/12'),
       checkoutTime: new Date('2023/06/15'),
     };
-    this.generalInfoService.addRoom(room);
+    this.generalInfoService.addRoom(room).subscribe(() => {
+      this.generalInfoService.getRoomsList();
+    });
   }
   updateRoom(roomId: string) {
     const updateRoomInfo: Partial<RoomInfo> = {

@@ -46,17 +46,14 @@ export class GeneralInfoService {
 
   getRoomsList() {
     this.http
-      .get<RoomInfo[]>('api/roomsList')
+      .get<RoomInfo[]>('/api/roomsList')
       .pipe(shareReplay(1), catchError(this.handleError))
       .subscribe((rooms) => this.roomsList$.next(rooms));
   }
   addRoom(room: Omit<RoomInfo, 'roomId'>) {
-    this.http
-      .post<RoomInfo>('/api/roomsList', room)
-      .pipe(catchError(this.handleError))
-      .subscribe(() => {
-        this.getRoomsList();
-      });
+    return this.http
+      .post<RoomInfo>('/api/roomsLst', room)
+      .pipe(catchError(this.handleError));
   }
   updateRoom(roomId: string, updateInfo: Partial<RoomInfo>) {
     this.http
