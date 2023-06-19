@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmployeeComponent } from './employee/employee.component';
-import { GeneralInfoComponent } from './general-info/general-info.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RoomDetailsComponent } from './general-info/room-details/room-details.component';
-import { RoomAddComponent } from './general-info/room-add/room-add.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -13,20 +11,12 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
     path: 'employee',
     component: EmployeeComponent,
-  },
-  {
-    path: 'rooms',
-    component: GeneralInfoComponent,
-  },
-  {
-    path: 'rooms/add',
-    component: RoomAddComponent,
-  },
-  {
-    path: 'rooms/:id',
-    component: RoomDetailsComponent,
   },
   {
     path: '**',

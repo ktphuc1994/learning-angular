@@ -28,6 +28,7 @@
       (roomListDestroyEvent)="clearSelectedRoom()"
     /></div
 ></ng-container>
+<router-outlet />
 <div *ngIf="selectedRoom">
   <button (click)="clearSelectedRoom()">Clear</button>
   <p>{{ selectedRoom | json }}</p>

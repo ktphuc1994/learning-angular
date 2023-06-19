@@ -5,18 +5,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
+import { GeneralInfoModule } from './general-info/general-info.module';
+
+// import local directive
+import { HoverDirective } from './hover.directive';
+import { EmailValidatorDirective } from './email-validator/email-validator.directive';
 
 // import local components
 import { AppComponent } from './app.component';
 import { AppNavComponent } from './app-nav/app-nav.component';
-import { GeneralInfoComponent } from './general-info/general-info.component';
-import { RoomsListComponent } from './general-info/rooms-list/rooms-list.component';
-import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RoomDetailsComponent } from './general-info/room-details/room-details.component';
-import { RoomAddComponent } from './general-info/room-add/room-add.component';
+import { LoginComponent } from './login/login.component';
 
 // import local services
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appConfig.service';
@@ -24,19 +25,14 @@ import { HttpRequestInterceptor } from './http-request.interceptor';
 import { InitService } from './init.service';
 
 // import angular material
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import {
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
-  MatFormFieldModule,
-} from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { GeneralInfoRoutingModule } from './general-info/general-info-routing.module';
 
 function initFactory(initService: InitService) {
   return () => initService.init();
@@ -45,38 +41,31 @@ function initFactory(initService: InitService) {
 @NgModule({
   declarations: [
     AppComponent,
-    GeneralInfoComponent,
-    RoomsListComponent,
-    HeaderComponent,
     ContainerComponent,
     EmployeeComponent,
     AppNavComponent,
     NotFoundComponent,
-    RoomDetailsComponent,
-    RoomAddComponent,
+    LoginComponent,
+    HoverDirective,
+    EmailValidatorDirective,
   ],
   imports: [
     BrowserModule,
+    GeneralInfoRoutingModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
+    GeneralInfoModule,
     MatSidenavModule,
+    MatToolbarModule,
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
+    MatButtonModule,
     MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
   ],
   providers: [
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'outline' },
-    },
     { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG },
     {
       provide: HTTP_INTERCEPTORS,

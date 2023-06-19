@@ -1,0 +1,27 @@
+<form>
+  <mat-form-field hotelHover="green">
+    <mat-label>Email</mat-label>
+    <input
+      #emailControl="ngModel"
+      matInput
+      hotelEmailValidator
+      name="email"
+      type="email"
+      [(ngModel)]="email"
+      placeholder="Please enter your email"
+    />
+    <mat-error> Email is required </mat-error>
+  </mat-form-field>
+  <mat-form-field hotelHover="red">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      name="password"
+      type="password"
+      [(ngModel)]="password"
+      placeholder="Please enter your password"
+    />
+    <mat-error> Password is required </mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="login()">Submit</button>
+</form>

@@ -39,7 +39,7 @@ export class GeneralInfoComponent
   constructor(private generalInfoService: GeneralInfoService) {}
 
   ngOnInit(): void {
-    this.generalInfoService.getRoomsList();
+    this.getRoomsList();
   }
 
   ngAfterViewInit(): void {
@@ -57,6 +57,10 @@ export class GeneralInfoComponent
     this.roomManage.availableRoom++;
     this.roomManage.bookedRoom--;
   }
+
+  getRoomsList = () => {
+    this.generalInfoService.getRoomsList();
+  };
   addRoom() {
     const room: Omit<RoomInfo, 'roomId'> = {
       roomType: 'Regular Deluxe',
@@ -66,20 +70,21 @@ export class GeneralInfoComponent
       checkinTime: new Date('2023/06/12'),
       checkoutTime: new Date('2023/06/15'),
     };
-    this.generalInfoService.addRoom(room).subscribe(() => {
-      this.generalInfoService.getRoomsList();
-    });
+    this.generalInfoService.addRoom(room).subscribe(this.getRoomsList);
   }
   updateRoom(roomId: string) {
     const updateRoomInfo: Partial<RoomInfo> = {
       roomType: 'Updated RoomType',
       amenities: 'TV, Yard, New PS5, Updated',
     };
-    this.generalInfoService.updateRoom(roomId, updateRoomInfo);
+    this.generalInfoService
+      .updateRoom(roomId, updateRoomInfo)
+      .subscribe(this.getRoomsList);
   }
   deleteRoom(roomId: string) {
-    this.generalInfoService.deleteRoom(roomId);
+    this.generalInfoService.deleteRoom(roomId).subscribe(this.getRoomsList);
   }
+
   selectRoom(room: RoomInfo) {
     this.selectedRoom = room;
   }

@@ -52,24 +52,18 @@ export class GeneralInfoService {
   }
   addRoom(room: Omit<RoomInfo, 'roomId'>) {
     return this.http
-      .post<RoomInfo>('/api/roomsLst', room)
+      .post<RoomInfo>('/api/roomsList', room)
       .pipe(catchError(this.handleError));
   }
   updateRoom(roomId: string, updateInfo: Partial<RoomInfo>) {
-    this.http
+    return this.http
       .put<RoomInfo>(`/api/roomsList/${roomId}`, updateInfo)
-      .pipe(catchError(this.handleError))
-      .subscribe(() => {
-        this.getRoomsList();
-      });
+      .pipe(catchError(this.handleError));
   }
   deleteRoom(roomId: string) {
-    this.http
+    return this.http
       .delete(`/api/roomsList/${roomId}`)
-      .pipe(catchError(this.handleError))
-      .subscribe(() => {
-        this.getRoomsList();
-      });
+      .pipe(catchError(this.handleError));
   }
 
   get roomsList() {

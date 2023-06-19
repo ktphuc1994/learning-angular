@@ -10,19 +10,42 @@
     <span>{{ isSuccess ? "Success" : "Failed" }}</span>
   </p>
 </div>
-<form class="room-add-form" (ngSubmit)="addRoom()">
-  <mat-form-field>
+<form #roomForm="ngForm" class="room-add-form" (ngSubmit)="addRoom(roomForm)">
+  <mat-form-field [ngClass]="roomType.dirty && roomType.invalid ? 'error' : ''">
     <mat-label>Room Type</mat-label>
-    <input matInput name="roomType" [(ngModel)]="room.roomType" />
+    <input
+      #roomType="ngModel"
+      matInput
+      required
+      name="roomType"
+      [(ngModel)]="room.roomType"
+    />
+    <mat-error *ngIf="roomType.dirty && roomType.hasError('required')">
+      Room type is required
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Amenities</mat-label>
-    <input matInput name="amenities" [(ngModel)]="room.amenities" />
+    <input
+      #roomAmenities="ngModel"
+      matInput
+      required
+      minlength="5"
+      name="amenities"
+      [(ngModel)]="room.amenities"
+    />
+    <mat-error *ngIf="roomAmenities.hasError('required')">
+      Amenities is required
+    </mat-error>
+    <mat-error *ngIf="roomAmenities.errors?.['minlength']">
+      Amenities should be at least 5 characters.
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Price</mat-label>
     <input
       matInput
+      required
       name="price"
       [(ngModel)]="room.price"
       type="number"
@@ -33,12 +56,13 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Photo URL</mat-label>
-    <input matInput name="photos" [(ngModel)]="room.photos" />
+    <input matInput required name="photos" [(ngModel)]="room.photos" />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Checkin Time</mat-label>
     <input
       matInput
+      required
       name="checkinTime"
       [(ngModel)]="room.checkinTime"
       [matDatepicker]="pickerCheckin"
@@ -50,6 +74,7 @@
     <mat-label>Checkout Time</mat-label>
     <input
       matInput
+      required
       name="checkoutTime"
       [(ngModel)]="room.checkoutTime"
       [matDatepicker]="pickerCheckout"
@@ -58,5 +83,12 @@
     <mat-datepicker #pickerCheckout />
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">Submit</button>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="roomForm.invalid"
+  >
+    Submit
+  </button>
 </form>
