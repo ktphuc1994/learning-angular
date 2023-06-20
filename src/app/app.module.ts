@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
-import { GeneralInfoModule } from './general-info/general-info.module';
+// import { GeneralInfoModule } from './general-info/general-info.module';
 
 // import local directive
 import { HoverDirective } from './hover.directive';
@@ -32,7 +32,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { GeneralInfoRoutingModule } from './general-info/general-info-routing.module';
 
 function initFactory(initService: InitService) {
   return () => initService.init();
@@ -51,12 +50,10 @@ function initFactory(initService: InitService) {
   ],
   imports: [
     BrowserModule,
-    GeneralInfoRoutingModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    GeneralInfoModule,
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,

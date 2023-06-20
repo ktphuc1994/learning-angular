@@ -20,7 +20,7 @@ export class EmailValidatorDirective implements Validator {
   constructor() {}
 
   validate(control: AbstractControl<string, any>): ValidationErrors | null {
-    if (control.value.includes('test')) {
+    if (control.value?.includes('test')) {
       return { invalidEmail: true };
     }
     return null;

@@ -1,0 +1,171 @@
+<p>booking works!</p>
+{{ bookingForm.value | json }}
+<form [formGroup]="bookingForm" class="booking-form" (ngSubmit)="addBooking()">
+  <mat-form-field class="full-width">
+    <mat-label>Room ID</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="roomId"
+      placeholder="Ex. pat@example.com"
+    />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Guest Email</mat-label>
+    <input
+      type="email"
+      matInput
+      formControlName="guestEmail"
+      placeholder="Ex. pat@example.com"
+    />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Guest Name</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="guestName"
+      placeholder="guestName"
+    />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Mobile Number</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="mobileNumber"
+      placeholder="mobileNumber"
+    />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Booking Amount</mat-label>
+    <input
+      type="number"
+      matInput
+      formControlName="bookingAmount"
+      placeholder="bookingAmount"
+    />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Booking Status</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="bookingStatus"
+      placeholder="bookingStatus"
+    />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Checkin Date</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="checkinDate"
+      [matDatepicker]="checkinPicker"
+    />
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="checkinPicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #checkinPicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Checkout Date</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="checkoutDate"
+      [matDatepicker]="checkoutPicker"
+    />
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="checkoutPicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #checkoutPicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Booking Date</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="bookingDate"
+      [matDatepicker]="bookingPicker"
+    />
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="bookingPicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #bookingPicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Guest Count</mat-label>
+    <input
+      type="number"
+      matInput
+      formControlName="guestCount"
+      placeholder="guestCount"
+    />
+  </mat-form-field>
+
+  <div formGroupName="address" class="booking-form__address">
+    <mat-expansion-panel
+      (opened)="addressOpen = true"
+      (closed)="addressOpen = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>Address</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-form-field class="full-width">
+        <mat-label>Address Line 1</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="addressLine1"
+          placeholder="Address Line 1"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Address Line 2</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="addressLine2"
+          placeholder="Address Line 2"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>City</mat-label>
+        <input type="text" matInput formControlName="city" placeholder="City" />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>State</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="state"
+          placeholder="State"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Country</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="country"
+          placeholder="Country"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Zip Code</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="zipCode"
+          placeholder="Zip Code"
+        />
+      </mat-form-field>
+    </mat-expansion-panel>
+  </div>
+  <button mat-raised-button color="primary">Book Room</button>
+</form>
