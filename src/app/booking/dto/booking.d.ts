@@ -1,18 +1,21 @@
 export class Booking {
   roomId: string;
+  guestName: string;
   guestEmail: string;
+  mobileNumber: string;
+  bookingAmount: number;
+  bookingStatus: string;
   checkinDate: Date;
   checkoutDate: Date;
-  bookingStatus: string;
-  bookingAmount: number;
   bookingDate: Date;
-  mobileNumber: string;
-  guestName: string;
-  guestAddress: string;
-  guestCity: string;
-  guestState: string;
-  guestCountry: string;
-  guestZipCode: string;
-  guestCount: number;
-  guestList: any[];
+  address: {
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    state: string;
+    country: string;
+    zipCode: string;
+  };
+  guests: { guestName: string; age: string }[];
+  tnc: boolean;
 }
