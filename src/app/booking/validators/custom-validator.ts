@@ -24,13 +24,14 @@ export class CustomValidator {
   }
 
   static validateCheckAll(control: AbstractControl<Booking>) {
-    console.log({ control });
     const checkinDate = new Date(control.value.checkinDate);
     const checkoutDate = new Date(control.value.checkoutDate);
     if (checkinDate > checkoutDate) {
-      return {
-        invalidDate: true,
-      };
+      control.get('checkoutDate')?.setErrors({ invalidDate: true });
+      control.get('checkinDate')?.setErrors({ invalidDate: true });
+    } else {
+      control.get('checkoutDate')?.setErrors(null);
+      control.get('checkinDate')?.setErrors(null);
     }
     return null;
   }

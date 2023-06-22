@@ -24,7 +24,7 @@ const routes: Routes = [
     canMatch: [loadLoginGuard],
   },
   {
-    path: 'booking',
+    path: 'booking/:roomId',
     loadChildren: () =>
       import('./booking/booking.module').then((m) => m.BookingModule),
   },

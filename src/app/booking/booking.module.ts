@@ -17,9 +17,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { UnsaveComponent } from './dialog/unsave/unsave.component';
 
 @NgModule({
-  declarations: [BookingComponent],
+  declarations: [BookingComponent, UnsaveComponent],
   imports: [
     CommonModule,
     BookingRoutingModule,
@@ -32,6 +34,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatExpansionModule,
     MatIconModule,
     MatCheckboxModule,
+    MatDialogModule,
   ],
   providers: [
     {

@@ -19,7 +19,10 @@
     <td>{{ room.checkinTime | date : "dd/MMM/yyyy" }}</td>
     <th>
       <!-- <button type="button" (click)="selectRoom(room)">Select</button> -->
-      <button [routerLink]="['/booking']" [queryParams]="{ id: room.roomId }">
+      <button
+        [routerLink]="['/booking', room.roomId]"
+        [queryParams]="{ id: room.roomId }"
+      >
         Book
       </button>
       <button [routerLink]="['/rooms', room.roomId]">Select</button>

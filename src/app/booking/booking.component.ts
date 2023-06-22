@@ -5,10 +5,12 @@ import {
   FormControl,
   FormArray,
   Validators,
+  FormGroupDirective,
 } from '@angular/forms';
 import { BookingService } from './booking.service';
-import { mergeMap } from 'rxjs';
+import { exhaustMap, mergeMap } from 'rxjs';
 import { CustomValidator } from './validators/custom-validator';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'hotel-booking',
@@ -17,6 +19,7 @@ import { CustomValidator } from './validators/custom-validator';
 })
 export class BookingComponent implements OnInit {
   bookingForm!: FormGroup;
+  roomId = this.route.snapshot.paramMap.get('roomId');
 
   get guests() {
     return this.bookingForm.get('guests') as FormArray;
@@ -40,14 +43,16 @@ export class BookingComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.bookingForm = new FormGroup(
       {
         roomId: new FormControl(
-          { value: '2', disabled: true },
+          { value: this.roomId, disabled: true },
           { validators: [Validators.required] }
         ),
         guestName: new FormControl('', {
@@ -65,8 +70,8 @@ export class BookingComponent implements OnInit {
         mobileNumber: new FormControl('', { updateOn: 'blur' }),
         bookingAmount: new FormControl(''),
         bookingStatus: new FormControl(''),
-        checkinDate: new FormControl(''),
-        checkoutDate: new FormControl(''),
+        checkinDate: new FormControl('', [Validators.required]),
+        checkoutDate: new FormControl('', [Validators.required]),
         bookingDate: new FormControl(''),
         address: this.addressGroup,
         guests: this.formBuilder.array([this.guestGroup]),
@@ -76,34 +81,39 @@ export class BookingComponent implements OnInit {
     );
     this.getBookingDate();
     this.bookingForm.valueChanges
-      .pipe(mergeMap((data) => this.bookingService.bookRoom(data)))
+      .pipe(exhaustMap((data) => this.bookingService.bookRoom(data)))
       .subscribe((value) => {
         console.log(value);
       });
   }
 
+  canDeactivate(forceDeactivate: boolean = false, nextRoute: string = '') {
+    if (forceDeactivate) {
+      this.router.navigate([nextRoute]);
+      return false;
+    }
+    return this.bookingForm.pristine;
+  }
+
   getBookingDate() {
     this.bookingForm.patchValue({
-      roomId: '2',
-      guestName: 'Khuc Thien Phuc',
+      guestName: 'Khuc Thien Phuctest',
       guestEmail: 'test@gmail.com',
       mobileNumber: '0123456789',
       // bookingAmount: '',
       bookingStatus: 'booked',
-      checkinDate: new Date(),
-      checkoutDate: new Date(new Date().setDate(new Date().getDate() + 1)),
       bookingDate: '',
       address: {
-        // addressLine1: '',
-        addressLine2: '123',
-        city: '',
-        state: '',
+        addressLine1: '123',
+        // addressLine2: '',
+        city: 'District 1',
+        state: 'HCM',
         country: '',
         zipCode: '',
       },
       guests: [
         {
-          guestName: '',
+          guestName: 'Phuc',
           age: '',
         },
       ],
@@ -114,7 +124,7 @@ export class BookingComponent implements OnInit {
   addBooking() {
     console.log(this.bookingForm.value);
     this.bookingForm.reset({
-      roomId: '2',
+      roomId: this.roomId,
       guestName: '',
       guestEmail: '',
       mobileNumber: '',
