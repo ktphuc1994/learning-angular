@@ -19,6 +19,7 @@ import { RoomInfo } from '../rooms';
 export class RoomsListComponent implements OnChanges, OnDestroy {
   @Input() roomList: RoomInfo[] = [];
   @Input() title: string = '';
+  @Input() price: number = 0;
 
   @Output() selectRoomEvent = new EventEmitter<RoomInfo>();
   @Output() updateRoomEvent = new EventEmitter<string>();

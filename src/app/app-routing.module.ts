@@ -11,6 +11,11 @@ import { loadLoginGuard, loginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },
@@ -34,9 +39,9 @@ const routes: Routes = [
     canActivate: [loginGuard],
   },
   {
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full',
+    path: 'comments',
+    loadChildren: () =>
+      import('./comments/comments.module').then((m) => m.CommentsModule),
   },
   {
     path: '**',

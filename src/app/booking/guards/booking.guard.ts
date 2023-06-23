@@ -1,8 +1,12 @@
 import { inject } from '@angular/core';
-import { CanDeactivateFn, Router } from '@angular/router';
+import { CanDeactivateFn } from '@angular/router';
+
+// import local components
 import { BookingComponent } from '../booking.component';
-import { MatDialog } from '@angular/material/dialog';
 import { UnsaveComponent } from '../dialog/unsave/unsave.component';
+
+// import angular material
+import { MatDialog } from '@angular/material/dialog';
 
 export const bookingGuard: CanDeactivateFn<BookingComponent> = (
   component,
@@ -10,16 +14,12 @@ export const bookingGuard: CanDeactivateFn<BookingComponent> = (
   currentState,
   nextState
 ) => {
-  console.log({ currentRoute, currentState, nextState });
   const dialog = inject(MatDialog);
-  const router = inject(Router);
-  return component.canDeactivate();
-  if (component.bookingForm.pristine) return true;
+  if (component.canDeactivate()) return true;
   const dialogRef = dialog.open(UnsaveComponent);
   dialogRef.afterClosed().subscribe((result) => {
     if (result) {
-      component.bookingForm.reset();
-      router.navigate([nextState.url]);
+      component.canDeactivate(true, nextState.url);
     }
   });
   return false;

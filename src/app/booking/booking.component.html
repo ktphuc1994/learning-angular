@@ -1,4 +1,5 @@
 <p>{{ bookingForm.value | json }}</p>
+<p>{{ canLeaveRoute }}</p>
 <button mat-stroked-button (click)="addPassport()">Add Passport</button>
 <form [formGroup]="bookingForm" class="booking-form" (ngSubmit)="addBooking()">
   <div

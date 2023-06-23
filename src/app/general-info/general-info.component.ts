@@ -14,6 +14,7 @@ import { HeaderComponent } from '../header/header.component';
 
 // import local services
 import { GeneralInfoService } from './services/general-info.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'hotel-general-info',
@@ -31,6 +32,7 @@ export class GeneralInfoComponent
     bookedRoom: 15,
   };
 
+  nowDate = new Date();
   roomsList = this.generalInfoService.roomsList;
   selectedRoom: RoomInfo | null = null;
 
@@ -57,6 +59,8 @@ export class GeneralInfoComponent
     this.roomManage.availableRoom++;
     this.roomManage.bookedRoom--;
   }
+
+  priceFilter = new FormControl(0);
 
   getRoomsList = () => {
     this.generalInfoService.getRoomsList();

@@ -16,12 +16,24 @@
 <button (click)="bookRoom()">Book Room</button>
 <button (click)="unbookRoom()">Unbook Room</button>
 <button (click)="addRoom()">Add Room</button>
-
+<p>{{ nowDate }}</p>
+<div>
+  <mat-form-field class="full-width">
+    <mat-label>Lowest Price</mat-label>
+    <input
+      type="number"
+      matInput
+      [formControl]="priceFilter"
+      placeholder="Lowest Price"
+    />
+  </mat-form-field>
+</div>
 <ng-container *ngIf="roomsList | async as roomsList">
   <div *ngIf="roomManage.availableRoom > 0">
     <hotel-rooms-list
       [roomList]="roomsList"
       [title]="roomTitle"
+      [price]="priceFilter.value ?? 0"
       (selectRoomEvent)="selectRoom($event)"
       (updateRoomEvent)="updateRoom($event)"
       (deleteRoomEvent)="deleteRoom($event)"

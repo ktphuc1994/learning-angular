@@ -1,11 +1,9 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
-// import { GeneralInfoModule } from './general-info/general-info.module';
 
 // import local directive
 import { HoverDirective } from './hover.directive';
@@ -20,9 +18,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 
 // import local services
-import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appConfig.service';
 import { HttpRequestInterceptor } from './http-request.interceptor';
 import { InitService } from './init.service';
+import { GlobalErrorHandler } from './services/errorHandler.service';
 
 // import angular material
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -55,15 +53,14 @@ function initFactory(initService: InitService) {
     HttpClientModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    MatListModule,
     MatToolbarModule,
     MatIconModule,
-    MatListModule,
-    MatFormFieldModule,
     MatButtonModule,
+    MatFormFieldModule,
     MatInputModule,
   ],
   providers: [
-    { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpRequestInterceptor,
@@ -75,6 +72,7 @@ function initFactory(initService: InitService) {
       deps: [InitService],
       multi: true,
     },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   bootstrap: [AppComponent],
 })

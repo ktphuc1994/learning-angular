@@ -5,7 +5,6 @@ import {
   FormControl,
   FormArray,
   Validators,
-  FormGroupDirective,
 } from '@angular/forms';
 import { BookingService } from './booking.service';
 import { exhaustMap, mergeMap } from 'rxjs';
@@ -18,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./booking.component.scss'],
 })
 export class BookingComponent implements OnInit {
+  canLeaveRoute = false;
   bookingForm!: FormGroup;
   roomId = this.route.snapshot.paramMap.get('roomId');
 
@@ -87,12 +87,14 @@ export class BookingComponent implements OnInit {
       });
   }
 
-  canDeactivate(forceDeactivate: boolean = false, nextRoute: string = '') {
+  canDeactivate(forceDeactivate: boolean = false, nextRoute?: string) {
+    if (this.bookingForm.pristine || this.canLeaveRoute) return true;
     if (forceDeactivate) {
-      this.router.navigate([nextRoute]);
-      return false;
+      this.canLeaveRoute = true;
+      if (nextRoute) this.router.navigate([nextRoute]);
+      return true;
     }
-    return this.bookingForm.pristine;
+    return false;
   }
 
   getBookingDate() {
@@ -122,7 +124,6 @@ export class BookingComponent implements OnInit {
   }
 
   addBooking() {
-    console.log(this.bookingForm.value);
     this.bookingForm.reset({
       roomId: this.roomId,
       guestName: '',

@@ -9,7 +9,7 @@
     <th>Action</th>
   </tr>
   <tr
-    *ngFor="let room of roomList; let e = even"
+    *ngFor="let room of roomList | roomFilter : price; let e = even"
     [ngClass]="e ? 'even' : 'odd'"
   >
     <td>{{ room.roomId }}</td>
